@@ -1,3 +1,7 @@
+[![PyPI version](https://badge.fury.io/py/mmeval-vrag.svg)](https://pypi.org/project/mmeval-vrag/)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://pypi.org/project/mmeval-vrag/)
+[![License](https://img.shields.io/badge/license-Apache%202.0-green.svg)](LICENSE)
+
 # mmeval-vrag
 
 **Evaluation framework for Multimodal Vision-Language RAG systems.**
@@ -8,7 +12,7 @@ Measure retrieval quality, hallucination, faithfulness, and cross-modal alignmen
 
 ## Why mmeval-vrag?
 
-Existing RAG evaluation tools focus on text-only pipelines. Real-world systems increasingly retrieve **images alongside text** — medical scans with clinical notes, product photos with descriptions, diagrams with documentation. `mmeval-vrag` is purpose-built for this multimodal setting:
+Existing RAG evaluation tools focus on text-only pipelines. Real-world systems increasingly retrieve **images alongside text** such as medical scans with clinical notes, product photos with descriptions, diagrams with documentation. `mmeval-vrag` is purpose-built for this multimodal setting:
 
 - **11 metrics** spanning retrieval, generation, and cross-modal alignment
 - **Graceful degradation** — works with CPU-only token overlap, scales up with sentence-transformers, CLIP, and NLI models
