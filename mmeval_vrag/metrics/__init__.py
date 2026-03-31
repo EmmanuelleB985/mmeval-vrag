@@ -13,10 +13,10 @@ from typing import Dict, List, Type
 from mmeval_vrag.config import EvalConfig
 from mmeval_vrag.types import EvalSample
 
-
 # ---------------------------------------------------------------------------
 # Base class
 # ---------------------------------------------------------------------------
+
 
 class BaseMetric(ABC):
     """Base class for all metrics.
@@ -60,9 +60,7 @@ def register_metric(cls: Type[BaseMetric]) -> Type[BaseMetric]:
 
 def get_metric_class(name: str) -> Type[BaseMetric]:
     if name not in _METRIC_REGISTRY:
-        raise KeyError(
-            f"Metric '{name}' not registered. Available: {list(_METRIC_REGISTRY)}"
-        )
+        raise KeyError(f"Metric '{name}' not registered. Available: {list(_METRIC_REGISTRY)}")
     return _METRIC_REGISTRY[name]
 
 
@@ -73,11 +71,10 @@ def list_metrics() -> List[str]:
 # ---------------------------------------------------------------------------
 # Import concrete metrics so they self-register
 # ---------------------------------------------------------------------------
-from mmeval_vrag.metrics.retrieval import (  # noqa: E402, F401
-    RetrievalMRR,
-    RetrievalNDCG,
-    RetrievalPrecision,
-    RetrievalRecall,
+from mmeval_vrag.metrics.cross_modal import (  # noqa: E402, F401
+    CrossModalAlignment,
+    MultimodalConsistency,
+    VisualGrounding,
 )
 from mmeval_vrag.metrics.faithfulness import (  # noqa: E402, F401
     AnswerRelevance,
@@ -85,8 +82,9 @@ from mmeval_vrag.metrics.faithfulness import (  # noqa: E402, F401
     Faithfulness,
 )
 from mmeval_vrag.metrics.hallucination import HallucinationRate  # noqa: E402, F401
-from mmeval_vrag.metrics.cross_modal import (  # noqa: E402, F401
-    CrossModalAlignment,
-    MultimodalConsistency,
-    VisualGrounding,
+from mmeval_vrag.metrics.retrieval import (  # noqa: E402, F401
+    RetrievalMRR,
+    RetrievalNDCG,
+    RetrievalPrecision,
+    RetrievalRecall,
 )

@@ -6,8 +6,8 @@ This example shows how to create evaluation samples and run the full
 suite of metrics with mmeval-vrag.
 """
 
-from mmeval_vrag import MultimodalRAGEvaluator, EvalConfig
-from mmeval_vrag.types import EvalSample, RetrievedItem, ImageInput
+from mmeval_vrag import EvalConfig, MultimodalRAGEvaluator
+from mmeval_vrag.types import EvalSample, RetrievedItem
 
 # ── 1. Build evaluation samples ──────────────────────────────────────────
 

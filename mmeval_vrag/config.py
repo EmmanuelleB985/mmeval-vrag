@@ -3,8 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Literal, Optional, Union
-
+from typing import Any, Dict, List, Literal, Optional
 
 # ---------------------------------------------------------------------------
 # Metric registry – canonical names the framework understands
@@ -30,9 +29,7 @@ def _resolve_metrics(names: List[str]) -> List[str]:
         return list(ALL_METRICS)
     unknown = set(names) - set(ALL_METRICS)
     if unknown:
-        raise ValueError(
-            f"Unknown metric(s): {unknown}. " f"Available: {ALL_METRICS}"
-        )
+        raise ValueError(f"Unknown metric(s): {unknown}. Available: {ALL_METRICS}")
     return list(names)
 
 

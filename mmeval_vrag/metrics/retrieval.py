@@ -5,9 +5,6 @@ from __future__ import annotations
 import math
 from typing import Dict, List
 
-import numpy as np
-
-from mmeval_vrag.config import EvalConfig
 from mmeval_vrag.metrics import BaseMetric, register_metric
 from mmeval_vrag.types import EvalSample
 
@@ -47,9 +44,7 @@ class RetrievalRecall(BaseMetric):
     def compute(self, sample: EvalSample) -> Dict[str, float]:
         k = self.config.top_k
         labels = _relevance_labels(sample, k)
-        total_relevant = sum(
-            1 for item in sample.retrieved if getattr(item, "is_relevant", False)
-        )
+        total_relevant = sum(1 for item in sample.retrieved if getattr(item, "is_relevant", False))
         if total_relevant == 0:
             return {self.name: 0.0}
         return {self.name: sum(labels) / total_relevant}

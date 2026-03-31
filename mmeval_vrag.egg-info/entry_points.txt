@@ -1,0 +1,2 @@
+[console_scripts]
+mmeval-vrag = mmeval_vrag.cli:main

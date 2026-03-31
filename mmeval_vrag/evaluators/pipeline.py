@@ -8,13 +8,12 @@ runs everything and produces scores.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Callable, Dict, List, Optional, Protocol, Sequence
+from typing import Any, Dict, List, Optional, Protocol, Sequence
 
 from mmeval_vrag.config import EvalConfig
 from mmeval_vrag.evaluators.multimodal_rag import MultimodalRAGEvaluator
 from mmeval_vrag.results import EvalResultCollection
 from mmeval_vrag.types import EvalSample, ImageInput, RetrievedItem
-
 
 # ---------------------------------------------------------------------------
 # Protocols for user-supplied components
@@ -29,8 +28,7 @@ class Retriever(Protocol):
         query_text: Optional[str] = None,
         query_image: Optional[ImageInput] = None,
         top_k: int = 5,
-    ) -> List[RetrievedItem]:
-        ...
+    ) -> List[RetrievedItem]: ...
 
 
 class Generator(Protocol):
@@ -40,8 +38,7 @@ class Generator(Protocol):
         self,
         query_text: Optional[str],
         contexts: List[RetrievedItem],
-    ) -> str:
-        ...
+    ) -> str: ...
 
 
 # ---------------------------------------------------------------------------

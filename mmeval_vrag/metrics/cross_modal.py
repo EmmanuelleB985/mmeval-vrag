@@ -7,14 +7,12 @@ modalities, using CLIP-family models for zero-shot cross-modal scoring.
 
 from __future__ import annotations
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
 import numpy as np
 
-from mmeval_vrag.config import EvalConfig
 from mmeval_vrag.metrics import BaseMetric, register_metric
 from mmeval_vrag.types import EvalSample, ImageInput
-
 
 # ---------------------------------------------------------------------------
 # Shared CLIP helper

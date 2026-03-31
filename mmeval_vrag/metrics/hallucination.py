@@ -8,8 +8,6 @@ from __future__ import annotations
 
 from typing import Dict, List
 
-import numpy as np
-
 from mmeval_vrag.config import EvalConfig
 from mmeval_vrag.metrics import BaseMetric, register_metric
 from mmeval_vrag.types import EvalSample
@@ -79,9 +77,9 @@ class HallucinationRate(BaseMetric):
 
                 model_name = "cross-encoder/nli-deberta-v3-base"
                 self._nli_tokenizer = AutoTokenizer.from_pretrained(model_name)
-                self._nli_model = AutoModelForSequenceClassification.from_pretrained(
-                    model_name
-                ).to(self.config.device)
+                self._nli_model = AutoModelForSequenceClassification.from_pretrained(model_name).to(
+                    self.config.device
+                )
                 self._nli_model.eval()
             except Exception:
                 pass  # will use fallback

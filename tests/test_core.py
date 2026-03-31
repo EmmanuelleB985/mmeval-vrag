@@ -5,20 +5,18 @@ from __future__ import annotations
 import json
 import math
 import tempfile
-from pathlib import Path
 
 import numpy as np
 import pytest
 
-from mmeval_vrag.config import EvalConfig, _resolve_metrics, ALL_METRICS
-from mmeval_vrag.types import EvalSample, ImageInput, RetrievedItem
-from mmeval_vrag.results import EvalResult, EvalResultCollection
+from mmeval_vrag.config import ALL_METRICS, EvalConfig, _resolve_metrics
+from mmeval_vrag.datasets.loaders import load_dataset
 from mmeval_vrag.evaluators.multimodal_rag import MultimodalRAGEvaluator
 from mmeval_vrag.evaluators.pipeline import EvalPipeline, QueryItem
-from mmeval_vrag.utils.text import sentence_split, token_overlap, ngram_overlap
-from mmeval_vrag.metrics import list_metrics, get_metric_class
-from mmeval_vrag.datasets.loaders import load_dataset
-
+from mmeval_vrag.metrics import get_metric_class, list_metrics
+from mmeval_vrag.results import EvalResult, EvalResultCollection
+from mmeval_vrag.types import EvalSample, ImageInput, RetrievedItem
+from mmeval_vrag.utils.text import ngram_overlap, sentence_split, token_overlap
 
 # ═══════════════════════════════════════════════════════════════════════════
 # Fixtures
@@ -30,11 +28,23 @@ def simple_sample() -> EvalSample:
     return EvalSample(
         query_text="What is the treatment for diabetes?",
         retrieved=[
-            RetrievedItem(text="Diabetes is treated with insulin and lifestyle changes.", is_relevant=True, score=0.95),
-            RetrievedItem(text="Regular exercise helps manage blood sugar levels.", is_relevant=True, score=0.85),
-            RetrievedItem(text="The weather today is sunny and warm.", is_relevant=False, score=0.2),
+            RetrievedItem(
+                text="Diabetes is treated with insulin and lifestyle changes.",
+                is_relevant=True,
+                score=0.95,
+            ),
+            RetrievedItem(
+                text="Regular exercise helps manage blood sugar levels.",
+                is_relevant=True,
+                score=0.85,
+            ),
+            RetrievedItem(
+                text="The weather today is sunny and warm.", is_relevant=False, score=0.2
+            ),
         ],
-        generated_answer="Diabetes is commonly treated with insulin therapy and lifestyle modifications including regular exercise.",
+        generated_answer=("Diabetes is commonly treated with insulin therapy"
+                          " and lifestyle modifications including regular exercise."
+        ),
         reference_answer="Treatment includes insulin, diet, and exercise.",
         sample_id="test_001",
     )
@@ -55,9 +65,14 @@ def hallucinated_sample() -> EvalSample:
     return EvalSample(
         query_text="What causes headaches?",
         retrieved=[
-            RetrievedItem(text="Headaches can be caused by stress and dehydration.", is_relevant=True),
+            RetrievedItem(
+                text="Headaches can be caused by stress and dehydration.", is_relevant=True
+            ),
         ],
-        generated_answer="Headaches are caused by alien signals from space that disrupt brainwaves.",
+        generated_answer=(
+            "Headaches are caused by alien signals from space"
+            " that disrupt brainwaves."
+        ),
         sample_id="test_003",
     )
 
@@ -479,9 +494,7 @@ class TestResults:
         assert col.std("x") == 0.5
 
     def test_collection_to_json(self):
-        col = EvalResultCollection(
-            results=[EvalResult(sample_id="a", scores={"m": 0.9})]
-        )
+        col = EvalResultCollection(results=[EvalResult(sample_id="a", scores={"m": 0.9})])
         with tempfile.NamedTemporaryFile(suffix=".json", mode="w", delete=False) as f:
             path = f.name
         col.to_json(path)
@@ -492,9 +505,7 @@ class TestResults:
         assert data["per_sample"][0]["scores"]["m"] == 0.9
 
     def test_collection_repr(self):
-        col = EvalResultCollection(
-            results=[EvalResult(sample_id="a", scores={"m": 0.5})]
-        )
+        col = EvalResultCollection(results=[EvalResult(sample_id="a", scores={"m": 0.5})])
         r = repr(col)
         assert "n=1" in r
         assert "m:" in r
@@ -524,9 +535,7 @@ class TestMultimodalRAGEvaluator:
     def test_evaluate_multiple_samples(self, simple_sample, no_context_sample):
         cfg = EvalConfig(metrics=["faithfulness", "hallucination_rate"])
         evaluator = MultimodalRAGEvaluator(config=cfg)
-        results = evaluator.evaluate(
-            [simple_sample, no_context_sample], show_progress=False
-        )
+        results = evaluator.evaluate([simple_sample, no_context_sample], show_progress=False)
         assert len(results.results) == 2
         s = results.summary()
         assert "faithfulness" in s

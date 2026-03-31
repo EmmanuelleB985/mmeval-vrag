@@ -8,10 +8,9 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Dict, List, Optional, Sequence, Union
+from typing import Dict, List, Optional, Union
 
 from mmeval_vrag.types import EvalSample, ImageInput, RetrievedItem
-
 
 # ---------------------------------------------------------------------------
 # Registry
@@ -74,9 +73,7 @@ class JSONLLoader(DatasetLoader):
                     EvalSample(
                         query_text=obj.get("query"),
                         query_image=(
-                            ImageInput(path=obj["query_image"])
-                            if "query_image" in obj
-                            else None
+                            ImageInput(path=obj["query_image"]) if "query_image" in obj else None
                         ),
                         retrieved=retrieved,
                         generated_answer=obj.get("generated_answer", ""),

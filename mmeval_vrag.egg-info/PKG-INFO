@@ -1,3 +1,49 @@
+Metadata-Version: 2.4
+Name: mmeval-vrag
+Version: 0.1.0
+Summary: Evaluation framework for Multimodal Vision-Language RAG systems — measure retrieval quality, hallucination, faithfulness, and cross-modal alignment in one unified pipeline.
+Author-email: Emmanuelle Bourigault <bourigaulte98@gmail.com>
+License: Apache-2.0
+Project-URL: Homepage, https://github.com/EmmanuelleB985/mmeval-vrag
+Project-URL: Documentation, https://github.com/EmmanuelleB985/mmeval-vrag#readme
+Project-URL: Repository, https://github.com/EmmanuelleB985/mmeval-vrag
+Project-URL: Issues, https://github.com/EmmanuelleB985/mmeval-vrag/issues
+Keywords: multimodal,evaluation,RAG,vision-language,LLM,hallucination,VQA,CLIP,retrieval
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy>=1.24
+Requires-Dist: Pillow>=9.0
+Requires-Dist: tqdm>=4.60
+Provides-Extra: torch
+Requires-Dist: torch>=2.0; extra == "torch"
+Requires-Dist: torchvision>=0.15; extra == "torch"
+Provides-Extra: transformers
+Requires-Dist: transformers>=4.35; extra == "transformers"
+Requires-Dist: sentence-transformers>=2.2; extra == "transformers"
+Provides-Extra: full
+Requires-Dist: torch>=2.0; extra == "full"
+Requires-Dist: torchvision>=0.15; extra == "full"
+Requires-Dist: transformers>=4.35; extra == "full"
+Requires-Dist: sentence-transformers>=2.2; extra == "full"
+Requires-Dist: openai>=1.0; extra == "full"
+Requires-Dist: faiss-cpu>=1.7; extra == "full"
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0; extra == "dev"
+Requires-Dist: pytest-cov>=4.0; extra == "dev"
+Requires-Dist: ruff>=0.1; extra == "dev"
+Requires-Dist: mypy>=1.5; extra == "dev"
+Dynamic: license-file
+
 [![PyPI version](https://badge.fury.io/py/mmeval-vrag.svg)](https://pypi.org/project/mmeval-vrag/)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://pypi.org/project/mmeval-vrag/)
 [![CI](https://github.com/EmmanuelleB985/mmeval-vrag/actions/workflows/ci.yml/badge.svg)](https://github.com/EmmanuelleB985/mmeval-vrag/actions/workflows/ci.yml)

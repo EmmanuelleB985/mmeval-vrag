@@ -6,7 +6,7 @@ retrieved contexts and whether the contexts are relevant to the query.
 
 from __future__ import annotations
 
-from typing import Dict, List, Optional
+from typing import Dict, List
 
 import numpy as np
 
@@ -14,11 +14,9 @@ from mmeval_vrag.config import EvalConfig
 from mmeval_vrag.metrics import BaseMetric, register_metric
 from mmeval_vrag.types import EvalSample
 from mmeval_vrag.utils.text import (
-    ngram_overlap,
     sentence_split,
     token_overlap,
 )
-
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -36,7 +34,9 @@ def _embedding_similarity(
     """
     if model is not None:
         emb = model.encode([text_a, text_b], convert_to_numpy=True)
-        cos = float(np.dot(emb[0], emb[1]) / (np.linalg.norm(emb[0]) * np.linalg.norm(emb[1]) + 1e-9))
+        cos = float(
+            np.dot(emb[0], emb[1]) / (np.linalg.norm(emb[0]) * np.linalg.norm(emb[1]) + 1e-9)
+        )
         return cos
     return token_overlap(text_a, text_b)
 
@@ -86,8 +86,7 @@ class Faithfulness(BaseMetric):
         scores: List[float] = []
         for claim in claims:
             best = max(
-                _embedding_similarity(claim, ctx, self._model)
-                for ctx in sample.retrieved_texts
+                _embedding_similarity(claim, ctx, self._model) for ctx in sample.retrieved_texts
             )
             scores.append(best)
         return {self.name: float(np.mean(scores))}
@@ -121,9 +120,7 @@ class AnswerRelevance(BaseMetric):
     def compute(self, sample: EvalSample) -> Dict[str, float]:
         if not sample.query_text or not sample.generated_answer:
             return {self.name: 0.0}
-        score = _embedding_similarity(
-            sample.query_text, sample.generated_answer, self._model
-        )
+        score = _embedding_similarity(sample.query_text, sample.generated_answer, self._model)
         return {self.name: score}
 
 
