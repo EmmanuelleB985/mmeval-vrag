@@ -42,8 +42,9 @@ def simple_sample() -> EvalSample:
                 text="The weather today is sunny and warm.", is_relevant=False, score=0.2
             ),
         ],
-        generated_answer=("Diabetes is commonly treated with insulin therapy"
-                          " and lifestyle modifications including regular exercise."
+        generated_answer=(
+            "Diabetes is commonly treated with insulin therapy"
+            " and lifestyle modifications including regular exercise."
         ),
         reference_answer="Treatment includes insulin, diet, and exercise.",
         sample_id="test_001",
@@ -70,8 +71,7 @@ def hallucinated_sample() -> EvalSample:
             ),
         ],
         generated_answer=(
-            "Headaches are caused by alien signals from space"
-            " that disrupt brainwaves."
+            "Headaches are caused by alien signals from space that disrupt brainwaves."
         ),
         sample_id="test_003",
     )
