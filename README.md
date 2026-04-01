@@ -2,12 +2,16 @@
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://pypi.org/project/mmeval-vrag/)
 [![CI](https://github.com/EmmanuelleB985/mmeval-vrag/actions/workflows/ci.yml/badge.svg)](https://github.com/EmmanuelleB985/mmeval-vrag/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-Apache%202.0-green.svg)](LICENSE)
+[![Demo](https://img.shields.io/badge/🤗-Demo-yellow.svg)](https://huggingface.co/spaces/manuML/mmeval-vrag-demo)
+
 
 # mmeval-vrag
 
 **Evaluation framework for Multimodal Vision-Language RAG systems.**
 
 Measure retrieval quality, hallucination, faithfulness, and cross-modal alignment in one unified pipeline.
+
+**[Demo](https://huggingface.co/spaces/manuML/mmeval-vrag-demo) | [PyPI](https://pypi.org/project/mmeval-vrag/)**
 
 ---
 
